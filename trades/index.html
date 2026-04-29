@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pearl AI — Stop Losing Jobs to Voicemail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ─── Reset ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── Variables ─── */
+:root {
+  --bg:            #0C0C0C;
+  --bg2:           #141414;
+  --bg3:           #1C1C1C;
+  --bg4:           #222222;
+  --border:        rgba(255,255,255,0.07);
+  --border-strong: rgba(255,255,255,0.12);
+  --border-accent: rgba(255, 107, 53, 0.35);
+  --amber:         #FF6B35;
+  --amber-dim:     #cc5528;
+  --amber-glow:    rgba(255, 107, 53, 0.18);
+  --white:         #FFFFFF;
+  --off-white:     #E8E6E2;
+  --muted:         #808080;
+  --muted2:        #555555;
+  --danger:        #FF4444;
+  --green:         #2BAC76;
+  --fd:            'Barlow Condensed', sans-serif;
+  --fb:            'Barlow', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--off-white);
+  font-family: var(--fb);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ─── Utility ─── */
+.container { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+.section    { padding: 96px 28px; }
+.highlight  { color: var(--amber); }
+.muted      { color: var(--muted); }
+
+.label {
+  font-family: var(--fb);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  display: block;
+  margin-bottom: 14px;
+}
+
+/* ─── Display Type ─── */
+.d-xl {
+  font-family: var(--fd);
+  font-size: clamp(60px, 9vw, 124px);
+  font-weight: 900;
+  line-height: 0.93;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.d-lg {
+  font-family: var(--fd);
+  font-size: clamp(44px, 6.5vw, 84px);
+  font-weight: 900;
+  line-height: 0.96;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.d-md {
+  font-family: var(--fd);
+  font-size: clamp(34px, 4.5vw, 56px);
+  font-weight: 800;
+  line-height: 1.02;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.body-lg  { font-size: 18px; line-height: 1.72; color: var(--muted); }
+.body-md  { font-size: 15px; line-height: 1.7;  color: var(--muted); }
+
+/* ─── Buttons ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-family: var(--fd);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.12s ease, color 0.12s ease, box-shadow 0.12s ease;
+  white-space: nowrap;
+  /* chamfered corner — industrial feel */
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+.btn-primary {
+  padding: 18px 38px;
+  font-size: 18px;
+  background: var(--amber);
+  color: #000;
+  box-shadow: 0 8px 32px rgba(255,107,53,0.35);
+}
+.btn-primary:hover {
+  background: #fff;
+  box-shadow: 0 12px 40px rgba(255,107,53,0.20);
+}
+
+.btn-ghost {
+  padding: 16px 32px;
+  font-size: 17px;
+  background: transparent;
+  color: var(--amber);
+  border: 2px solid var(--amber);
+  clip-path: none; /* keep border visible */
+  border-radius: 0;
+}
+.btn-ghost:hover {
+  background: var(--amber);
+  color: #000;
+}
+
+.btn-dark-lg {
+  padding: 22px 56px;
+  font-size: 22px;
+  background: #000;
+  color: var(--amber);
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+}
+.btn-dark-lg:hover {
+  background: #fff;
+  color: #000;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+}
+
+/* ─── Ticker ─── */
+.ticker-bar {
+  overflow: hidden;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+  position: relative;
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: slide-ticker 32s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }
+.tick {
+  font-family: var(--fd);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted2);
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  white-space: nowrap;
+}
+.tick-dot {
+  width: 4px; height: 4px;
+  background: var(--amber);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+@keyframes slide-ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── Hero ─── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding: 120px 28px 96px;
+}
+
+/* Grid texture */
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,107,53,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,107,53,0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  pointer-events: none;
+}
+
+/* Radial amber glow */
+.hero-glow {
+  position: absolute;
+  top: -300px; left: -300px;
+  width: 900px; height: 900px;
+  background: radial-gradient(circle, rgba(255,107,53,0.10) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative; z-index: 2;
+  max-width: 1120px; margin: 0 auto;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+.hero-tag-line { width: 36px; height: 2px; background: var(--amber); }
+.hero-tag-text {
+  font-family: var(--fb);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--amber);
+}
+
+.hero-headline { max-width: 940px; margin-bottom: 28px; }
+
+.hero-sub {
+  font-size: clamp(17px, 2vw, 20px);
+  color: var(--muted);
+  max-width: 580px;
+  line-height: 1.7;
+  margin-bottom: 48px;
+}
+.hero-sub strong { color: var(--off-white); font-weight: 600; }
+
+.hero-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 56px;
+}
+
+/* Phone call block */
+.call-block {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 24px;
+  background: var(--bg3);
+  border: 1px solid var(--border-accent);
+}
+.call-block-label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--amber);
+}
+.call-block-number {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--fd);
+  font-size: 26px; font-weight: 800;
+  color: var(--white); text-decoration: none;
+  transition: color 0.12s;
+}
+.call-block-number:hover { color: var(--amber); }
+.call-block-note { font-size: 12px; color: var(--muted); }
+
+/* ─── Stats Row ─── */
+.stats-row {
+  display: flex; flex-wrap: wrap;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+}
+.stat {
+  flex: 1; min-width: 200px;
+  padding: 32px 36px;
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+.stat:last-child { border-right: none; }
+.stat-n {
+  font-family: var(--fd);
+  font-size: clamp(44px, 5.5vw, 68px);
+  font-weight: 900;
+  color: var(--amber);
+  line-height: 1;
+  margin-bottom: 8px;
+  display: block;
+}
+.stat-l { font-size: 14px; color: var(--muted); line-height: 1.45; }
+
+/* ─── Problem section ─── */
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 88px;
+  align-items: start;
+}
+
+/* Timeline */
+.timeline { position: relative; padding-left: 52px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 17px; top: 6px; bottom: 6px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--amber) 0%, transparent 100%);
+}
+.tl-item { position: relative; margin-bottom: 36px; }
+.tl-item:last-child { margin-bottom: 0; }
+
+.tl-dot {
+  position: absolute; left: -43px; top: 5px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 14px rgba(255,107,53,0.6);
+}
+.tl-dot.danger {
+  background: var(--danger);
+  box-shadow: 0 0 14px rgba(255,68,68,0.55);
+}
+.tl-dot.win {
+  background: var(--green);
+  box-shadow: 0 0 14px rgba(43,172,118,0.6);
+}
+
+.tl-time {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted2); margin-bottom: 5px;
+}
+.tl-title {
+  font-family: var(--fd);
+  font-size: 21px; font-weight: 800; text-transform: uppercase;
+  color: var(--white); margin-bottom: 5px;
+}
+.tl-title.danger { color: var(--danger); }
+.tl-title.win { color: var(--green); }
+.tl-desc { font-size: 15px; color: var(--muted); line-height: 1.6; }
+
+/* ─── How It Works ─── */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+}
+.step {
+  padding: 44px 36px;
+  border-right: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.step:last-child { border-right: none; }
+.step-n {
+  position: absolute; top: 12px; right: 20px;
+  font-family: var(--fd);
+  font-size: 88px; font-weight: 900;
+  color: rgba(255,107,53,0.07);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.step-icon { font-size: 28px; margin-bottom: 20px; display: block; }
+.step-title {
+  font-family: var(--fd);
+  font-size: 26px; font-weight: 800; text-transform: uppercase;
+  color: var(--white); margin-bottom: 12px;
+  position: relative; z-index: 1;
+}
+.step-body { font-size: 15px; color: var(--muted); line-height: 1.7; position: relative; z-index: 1; }
+
+/* ─── Slack mock ─── */
+.slack-wrap {
+  background: #1A1D21;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 14px;
+}
+.slack-head {
+  background: #19171D;
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; color: #ABABAD;
+}
+.slack-chan { color: #fff; font-weight: 700; }
+.slack-msg {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.slack-msg.urgent { background: rgba(255,50,50,0.07); border-left: 3px solid var(--danger); }
+.s-av {
+  width: 34px; height: 34px; flex-shrink: 0;
+  background: var(--amber); border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 900; color: #000;
+  font-family: var(--fd);
+}
+.s-av.red { background: var(--danger); }
+.s-body { flex: 1; }
+.s-who {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 4px;
+  font-size: 14px; color: #fff; font-weight: 700;
+}
+.s-tag {
+  font-size: 10px; padding: 1px 6px;
+  border-radius: 3px; font-weight: 700; font-family: var(--fb);
+}
+.s-tag.green { background: #2BAC76; color: #fff; }
+.s-tag.red   { background: #E01E5A; color: #fff; }
+.s-time { font-size: 11px; color: #666; font-family: var(--fb); }
+.s-text { font-size: 13px; color: #C9CACC; line-height: 1.55; font-family: var(--fb); }
+.s-text b { color: #fff; font-weight: 700; }
+.s-text .g { color: #2BAC76; font-weight: 600; }
+.s-text .o { color: #E8912D; font-weight: 600; }
+.s-text .r { color: var(--danger); font-weight: 600; }
+
+/* ─── Features Grid ─── */
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+.feat-card {
+  background: var(--bg);
+  padding: 32px 28px;
+  transition: background 0.18s;
+}
+.feat-card:hover { background: var(--bg3); }
+.feat-icon { font-size: 24px; margin-bottom: 14px; display: block; }
+.feat-title {
+  font-family: var(--fd);
+  font-size: 20px; font-weight: 800; text-transform: uppercase;
+  color: var(--white); margin-bottom: 9px;
+}
+.feat-body { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+/* ─── Guarantee ─── */
+.guarantee {
+  background: var(--bg2);
+  border: 1px solid var(--border-accent);
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+}
+.guarantee::after {
+  content: 'GUARANTEED';
+  position: absolute;
+  right: -80px; top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  font-family: var(--fd);
+  font-size: 72px; font-weight: 900; text-transform: uppercase;
+  color: rgba(255,107,53,0.05);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+.g-list { list-style: none; display: flex; flex-direction: column; gap: 18px; }
+.g-list li {
+  display: flex; align-items: flex-start; gap: 14px;
+  font-size: 16px; color: var(--off-white); line-height: 1.5;
+}
+.g-arrow {
+  color: var(--amber);
+  font-family: var(--fd); font-weight: 700; font-size: 20px;
+  flex-shrink: 0; margin-top: 0;
+}
+
+/* ─── CTA Section ─── */
+.cta-band {
+  background: var(--amber);
+  padding: 104px 28px;
+  position: relative;
+  overflow: hidden;
+}
+.cta-band::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+}
+.cta-inner { position: relative; z-index: 1; text-align: center; max-width: 760px; margin: 0 auto; }
+.cta-head {
+  font-family: var(--fd);
+  font-size: clamp(52px, 8vw, 96px);
+  font-weight: 900; text-transform: uppercase;
+  color: #000; line-height: 0.93;
+  margin-bottom: 24px;
+}
+.cta-sub { font-size: 18px; color: rgba(0,0,0,0.6); margin-bottom: 40px; line-height: 1.5; }
+.cta-fine { margin-top: 20px; font-size: 12px; color: rgba(0,0,0,0.45); letter-spacing: 0.05em; }
+
+/* ─── Calendar ─── */
+.cal-section {
+  background: var(--bg2);
+  padding: 96px 28px;
+}
+.cal-wrap {
+  border: 1px solid var(--border-accent);
+  background: var(--bg);
+  overflow: hidden;
+}
+
+/* ─── Footer ─── */
+footer {
+  padding: 48px 28px;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+.foot-inner {
+  max-width: 1120px; margin: 0 auto;
+  display: flex; flex-wrap: wrap;
+  gap: 24px; justify-content: space-between; align-items: center;
+}
+.foot-logo {
+  font-family: var(--fd);
+  font-size: 22px; font-weight: 900;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--white);
+}
+.foot-logo span { color: var(--amber); }
+.foot-info { font-size: 13px; color: var(--muted); line-height: 1.7; }
+.foot-link { color: var(--muted); text-decoration: none; transition: color 0.12s; }
+.foot-link:hover { color: var(--amber); }
+
+/* ─── Scroll Reveal ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.in { opacity: 1; transform: none; }
+.d1 { transition-delay: 0.08s; }
+.d2 { transition-delay: 0.16s; }
+.d3 { transition-delay: 0.24s; }
+.d4 { transition-delay: 0.32s; }
+
+/* ─── Responsive ─── */
+@media (max-width: 860px) {
+  .problem-grid { grid-template-columns: 1fr; gap: 56px; }
+  .steps-grid   { grid-template-columns: 1fr; }
+  .step         { border-right: none; border-bottom: 1px solid var(--border); }
+  .step:last-child { border-bottom: none; }
+  .two-col-layout { grid-template-columns: 1fr !important; gap: 48px !important; }
+}
+@media (max-width: 640px) {
+  .section          { padding: 64px 20px; }
+  .stats-row        { flex-direction: column; }
+  .stat             { border-right: none; border-bottom: 1px solid var(--border); }
+  .stat:last-child  { border-bottom: none; }
+  .hero-cta-row     { flex-direction: column; align-items: stretch; }
+  .btn-primary, .btn-ghost { text-align: center; justify-content: center; }
+  .call-block       { width: 100%; }
+  .guarantee        { padding: 28px 20px; }
+  .guarantee::after { display: none; }
+  .cta-band         { padding: 72px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     TICKER
+════════════════════════════════════════════════════ -->
+<div class="ticker-bar">
+  <div class="ticker-track">
+    <span class="tick"><span class="tick-dot"></span>HVAC</span>
+    <span class="tick"><span class="tick-dot"></span>Plumbing</span>
+    <span class="tick"><span class="tick-dot"></span>Garage Doors</span>
+    <span class="tick"><span class="tick-dot"></span>Electrical</span>
+    <span class="tick"><span class="tick-dot"></span>Roofing</span>
+    <span class="tick"><span class="tick-dot"></span>Drain Cleaning</span>
+    <span class="tick"><span class="tick-dot"></span>Heating & Furnace</span>
+    <span class="tick"><span class="tick-dot"></span>Locksmith</span>
+    <span class="tick"><span class="tick-dot"></span>Pest Control</span>
+    <span class="tick"><span class="tick-dot"></span>Water Heater</span>
+    <span class="tick"><span class="tick-dot"></span>AC Repair</span>
+    <!-- duplicate for seamless loop -->
+    <span class="tick"><span class="tick-dot"></span>HVAC</span>
+    <span class="tick"><span class="tick-dot"></span>Plumbing</span>
+    <span class="tick"><span class="tick-dot"></span>Garage Doors</span>
+    <span class="tick"><span class="tick-dot"></span>Electrical</span>
+    <span class="tick"><span class="tick-dot"></span>Roofing</span>
+    <span class="tick"><span class="tick-dot"></span>Drain Cleaning</span>
+    <span class="tick"><span class="tick-dot"></span>Heating & Furnace</span>
+    <span class="tick"><span class="tick-dot"></span>Locksmith</span>
+    <span class="tick"><span class="tick-dot"></span>Pest Control</span>
+    <span class="tick"><span class="tick-dot"></span>Water Heater</span>
+    <span class="tick"><span class="tick-dot"></span>AC Repair</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-inner">
+    <div class="hero-tag">
+      <div class="hero-tag-line"></div>
+      <span class="hero-tag-text">Pearl AI — Done-For-You Call Handling for Trades</span>
+    </div>
+
+    <div class="hero-headline">
+      <h1 class="d-xl">
+        Missed Calls<br>
+        <span class="highlight">Are Costing You</span><br>
+        Real Money.
+      </h1>
+    </div>
+
+    <p class="hero-sub">
+      Every unanswered call is a job that went to your competitor.<br>
+      <strong>Pearl answers instantly, qualifies the lead, and books the job</strong> — while you're on-site doing what you do best.
+    </p>
+
+    <div class="hero-cta-row">
+      <a href="#calendar-section" class="btn btn-primary">Start Your Free Trial →</a>
+      <a href="#demo-section" class="btn btn-ghost">Hear Pearl in Action</a>
+    </div>
+
+    <div class="call-block">
+      <span class="call-block-label">📞 Call Pearl right now — 30 seconds</span>
+      <a href="tel:+17784880772" class="call-block-number">(778) 488-0772</a>
+      <span class="call-block-note">Ask anything. No form. No pressure. Hear it yourself.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     STATS ROW
+════════════════════════════════════════════════════ -->
+<div class="stats-row">
+  <div class="stat reveal">
+    <span class="stat-n">62%</span>
+    <span class="stat-l">of trades calls go unanswered<br>during peak hours</span>
+  </div>
+  <div class="stat reveal d1">
+    <span class="stat-n">85%</span>
+    <span class="stat-l">of those callers never try again —<br>they call your competitor</span>
+  </div>
+  <div class="stat reveal d2">
+    <span class="stat-n">$800+</span>
+    <span class="stat-l">average job value lost every time<br>someone goes to voicemail</span>
+  </div>
+  <div class="stat reveal d3">
+    <span class="stat-n">14 days</span>
+    <span class="stat-l">free trial — no setup fee,<br>no contract required</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     DEMO VIDEO
+════════════════════════════════════════════════════ -->
+<section id="demo-section" class="section" style="background: var(--bg2); padding-top: 80px; padding-bottom: 80px;">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 44px;">
+      <span class="label">Hear It For Yourself</span>
+      <h2 class="d-md reveal">Pearl Answers a Real Call.<br><span class="highlight">Watch What Happens.</span></h2>
+      <p class="body-lg reveal" style="max-width: 560px; margin: 16px auto 0;">
+        No hold music. No scripts. No voicemail. Pearl qualifies the job and gets them booked — in real time.
+      </p>
+    </div>
+
+    <div style="border: 1px solid var(--border-accent); background: #000; overflow: hidden;" class="reveal">
+      <video
+        controls playsinline preload="metadata"
+        style="display: block; width: 100%; height: auto; max-height: 640px;"
+      >
+        <source src="https://assets.cdn.filesafe.space/hApUfRvKWe3PUH3mal20/media/695ed80fc98330735e328763.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     PROBLEM
+════════════════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="problem-grid">
+
+      <div>
+        <span class="label">The Problem</span>
+        <h2 class="d-md reveal" style="margin-bottom: 24px;">
+          You're On The Job.<br>
+          <span class="highlight">Phone Rings.</span><br>
+          Nobody Answers.
+        </h2>
+        <p class="body-lg reveal" style="margin-bottom: 20px;">
+          You can't answer the phone while you're on a roof, under a sink, or running a service call. But the person calling doesn't wait — they try the next result on Google.
+        </p>
+        <p class="body-lg reveal">
+          Missing just 3–5 calls a week is quietly costing you thousands every month. And you probably don't even know it's happening.
+        </p>
+      </div>
+
+      <div class="reveal">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-time">9:14 AM</div>
+            <div class="tl-title">You're mid-job on a site</div>
+            <div class="tl-desc">Hands full. Can't walk away. You're focused on the customer in front of you.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-time">9:15 AM</div>
+            <div class="tl-title">New customer calls</div>
+            <div class="tl-desc">Found you on Google. Urgent HVAC issue. Ready to book right now. Has credit card.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot danger"></div>
+            <div class="tl-time">9:16 AM</div>
+            <div class="tl-title danger">Voicemail picks up</div>
+            <div class="tl-desc">They hang up. They don't leave a message. They move on.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot danger"></div>
+            <div class="tl-time">9:17 AM</div>
+            <div class="tl-title danger">Your competitor answers</div>
+            <div class="tl-desc">That $600–$1,200 job is gone. You never even knew the call came in.</div>
+          </div>
+          <div class="tl-item" style="margin-bottom: 0;">
+            <div class="tl-dot win"></div>
+            <div class="tl-time">With Pearl</div>
+            <div class="tl-title win">Job booked at 9:15</div>
+            <div class="tl-desc">Pearl answers instantly, qualifies the job, and gets them in your calendar before they think about calling anyone else.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     HOW IT WORKS
+════════════════════════════════════════════════════ -->
+<section class="section" style="background: var(--bg2); padding: 80px 28px;">
+  <div class="container">
+    <div style="margin-bottom: 56px;">
+      <span class="label">How It Works</span>
+      <h2 class="d-md reveal">Three Steps.<br><span class="highlight">Zero Work On Your End.</span></h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step reveal">
+        <span class="step-n">01</span>
+        <span class="step-icon">📋</span>
+        <div class="step-title">We Learn Your Business</div>
+        <p class="step-body">Tell us your services, pricing rules, and how you like to operate. We handle all setup — you're usually live within 48 hours. You don't touch a thing.</p>
+      </div>
+      <div class="step reveal d1">
+        <span class="step-n">02</span>
+        <span class="step-icon">📞</span>
+        <div class="step-title">Pearl Answers Every Call</div>
+        <p class="step-body">Your existing number forwards to Pearl. She picks up instantly — 24/7 — qualifies the job, answers questions using your actual rules, and books straight into your calendar.</p>
+      </div>
+      <div class="step reveal d2">
+        <span class="step-n">03</span>
+        <span class="step-icon">📱</span>
+        <div class="step-title">You See Every Job in Slack</div>
+        <p class="step-body">Every call is summarized and posted to your private Slack. New booking? You're notified. Urgent job? Escalated immediately. You're always in the loop — without being on the phone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SLACK EXPERIENCE
+════════════════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="two-col-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start;">
+
+      <div>
+        <span class="label">What You Get</span>
+        <h2 class="d-md reveal" style="margin-bottom: 20px;">
+          Always Know<br>
+          <span class="highlight">What's Happening</span><br>
+          Without Being There.
+        </h2>
+        <p class="body-lg reveal" style="margin-bottom: 28px;">
+          Pearl posts to your private Slack in real time. Every call summarized. Every booking flagged. Urgent jobs escalated instantly. No more chasing voicemails.
+        </p>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px;" class="reveal">
+          <li style="display: flex; gap: 12px; font-size: 15px; color: var(--off-white);">
+            <span style="color: var(--amber); font-family: var(--fd); font-weight: 700; font-size: 18px; flex-shrink: 0;">→</span>
+            <span><strong>#bookings</strong> — posted every time a job is confirmed</span>
+          </li>
+          <li style="display: flex; gap: 12px; font-size: 15px; color: var(--off-white);">
+            <span style="color: var(--amber); font-family: var(--fd); font-weight: 700; font-size: 18px; flex-shrink: 0;">→</span>
+            <span><strong>#escalations</strong> — urgent calls that need you immediately</span>
+          </li>
+          <li style="display: flex; gap: 12px; font-size: 15px; color: var(--off-white);">
+            <span style="color: var(--amber); font-family: var(--fd); font-weight: 700; font-size: 18px; flex-shrink: 0;">→</span>
+            <span><strong>#summaries</strong> — every call logged, transcribed, searchable</span>
+          </li>
+          <li style="display: flex; gap: 12px; font-size: 15px; color: var(--off-white);">
+            <span style="color: var(--amber); font-family: var(--fd); font-weight: 700; font-size: 18px; flex-shrink: 0;">→</span>
+            <span><strong>#support</strong> — weekly reports + direct line to Evan</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="reveal">
+        <div class="slack-wrap">
+          <div class="slack-head"># <span class="slack-chan">bookings</span><span style="margin-left: auto; font-size: 11px;">Pearl AI Workspace</span></div>
+
+          <div class="slack-msg">
+            <div class="s-av">P</div>
+            <div class="s-body">
+              <div class="s-who">Pearl <span class="s-tag green">APP</span> <span class="s-time">Today at 9:15 AM</span></div>
+              <div class="s-text">
+                📞 <b>New Booking — HVAC Emergency</b><br>
+                <span class="g">✅ Job confirmed for Tuesday 2pm</span><br><br>
+                <b>Customer:</b> Mike D. — (647) 555-0182<br>
+                <b>Issue:</b> Furnace not producing heat<br>
+                <b>Address:</b> 142 Birchwood Dr, Mississauga<br>
+                <b>Est. value:</b> $400–$800
+              </div>
+            </div>
+          </div>
+
+          <div class="slack-msg">
+            <div class="s-av">P</div>
+            <div class="s-body">
+              <div class="s-who">Pearl <span class="s-tag green">APP</span> <span class="s-time">Today at 11:02 AM</span></div>
+              <div class="s-text">
+                📋 <b>Call Summary</b><br>
+                Caller asked about drain cleaning pricing. Quoted $180–$240 based on your rates. <span class="g">Booked for Thursday morning.</span> Confirmation text sent. Full transcript saved.
+              </div>
+            </div>
+          </div>
+
+          <div class="slack-msg urgent">
+            <div class="s-av red">P</div>
+            <div class="s-body">
+              <div class="s-who">Pearl <span class="s-tag red">URGENT</span> <span class="s-time">Today at 2:47 PM</span></div>
+              <div class="s-text">
+                🚨 <b>Escalation — Needs Immediate Callback</b><br>
+                <span class="r">Active burst pipe. Water damage ongoing.</span><br>
+                <b>(905) 555-0371</b> — Sarah K., 88 Maple Ave, Oakville.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     FEATURES
+════════════════════════════════════════════════════ -->
+<section class="section" style="background: var(--bg2); padding: 80px 28px;">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 52px;">
+      <span class="label">Everything Included</span>
+      <h2 class="d-md reveal">A Full Front Desk.<br><span class="highlight">Without The Hire.</span></h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card reveal">
+        <span class="feat-icon">📞</span>
+        <div class="feat-title">Answers 24/7</div>
+        <p class="feat-body">Nights, weekends, holidays. Every caller gets answered immediately. Nobody ever hits voicemail.</p>
+      </div>
+      <div class="feat-card reveal d1">
+        <span class="feat-icon">📅</span>
+        <div class="feat-title">Books Into Your Calendar</div>
+        <p class="feat-body">Pearl books directly for most businesses. Or delivers a ready-to-confirm lead to your Slack. No job falls through either way.</p>
+      </div>
+      <div class="feat-card reveal d2">
+        <span class="feat-icon">🎯</span>
+        <div class="feat-title">Trained On Your Business</div>
+        <p class="feat-body">Your services, pricing, service area, and rules — so customers get accurate answers, not generic guesses.</p>
+      </div>
+      <div class="feat-card reveal">
+        <span class="feat-icon">🔍</span>
+        <div class="feat-title">Vets Every Lead</div>
+        <p class="feat-body">Gathers job details, handles FAQs, filters bad fits. Only escalates when a real human decision is needed.</p>
+      </div>
+      <div class="feat-card reveal d1">
+        <span class="feat-icon">💬</span>
+        <div class="feat-title">Confirmations & Reminders</div>
+        <p class="feat-body">Automated texts and email reminders so customers show up and your schedule stays tight and profitable.</p>
+      </div>
+      <div class="feat-card reveal d2">
+        <span class="feat-icon">⭐</span>
+        <div class="feat-title">Review Generation</div>
+        <p class="feat-body">After every job, Pearl follows up and prompts happy customers for a Google review. Your reputation grows on autopilot.</p>
+      </div>
+      <div class="feat-card reveal">
+        <span class="feat-icon">📊</span>
+        <div class="feat-title">Weekly Reports</div>
+        <p class="feat-body">Calls answered, jobs booked, revenue recovered — in plain language every week, direct to your Slack.</p>
+      </div>
+      <div class="feat-card reveal d1">
+        <span class="feat-icon">🔒</span>
+        <div class="feat-title">Uses Your Existing Number</div>
+        <p class="feat-body">Same number, same area code. Nothing changes for your customers — they just always get answered now.</p>
+      </div>
+      <div class="feat-card reveal d2">
+        <span class="feat-icon">🛠</span>
+        <div class="feat-title">Real Human Support</div>
+        <p class="feat-body">Pricing change? New service area? Updated hours? Message us — we handle it. No tickets, no wait.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     RISK REVERSAL
+════════════════════════════════════════════════════ -->
+<section class="section">
+  <div class="container">
+    <div class="two-col-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start;">
+
+      <div>
+        <span class="label">Zero Risk</span>
+        <h2 class="d-md reveal" style="margin-bottom: 20px;">
+          Try It Free.<br>
+          <span class="highlight">We Handle Everything.</span><br>
+          Or We Pay You.
+        </h2>
+        <p class="body-lg reveal" style="margin-bottom: 20px;">
+          Run Pearl completely free for 14 days. No setup fee. No contract. No credit card required to start.
+        </p>
+        <p class="body-lg reveal">
+          If it doesn't pay for itself within 30 days of going live, we send you <strong style="color: var(--white);">$200 out of pocket</strong>. That's how confident we are it works.
+        </p>
+      </div>
+
+      <div class="guarantee reveal">
+        <ul class="g-list">
+          <li>
+            <span class="g-arrow">→</span>
+            <div><strong>We handle 100% of setup.</strong> Go live within 48 hours. Nothing on your plate.</div>
+          </li>
+          <li>
+            <span class="g-arrow">→</span>
+            <div><strong>14-day free trial.</strong> No credit card needed to get started.</div>
+          </li>
+          <li>
+            <span class="g-arrow">→</span>
+            <div><strong>No setup fee. No contracts.</strong> Cancel any time, no questions asked.</div>
+          </li>
+          <li>
+            <span class="g-arrow">→</span>
+            <div><strong>Works with your existing number.</strong> Customers notice nothing different — except you always answer.</div>
+          </li>
+          <li>
+            <span class="g-arrow">→</span>
+            <div><strong>Sounds like a real trades expert.</strong> Not a robot. Not a script.</div>
+          </li>
+          <li>
+            <span class="g-arrow">→</span>
+            <div><strong>If it doesn't pay for itself in 30 days, we pay you $200.</strong> Simple guarantee, no hoops.</div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     CALENDAR
+════════════════════════════════════════════════════ -->
+<section id="calendar-section" class="cal-section">
+  <div class="container" style="max-width: 900px;">
+    <div style="text-align: center; margin-bottom: 44px;">
+      <span class="label">Start Your Free Trial</span>
+      <h2 class="d-md reveal">Book Your Setup Call.</h2>
+      <p class="body-lg reveal" style="max-width: 520px; margin: 16px auto 0;">
+        15 minutes. We confirm it's a fit, walk through how Pearl works for your trade, and get you live within 48 hours.
+      </p>
+    </div>
+    <div class="cal-wrap reveal">
+      <iframe
+        src="https://api.leadconnectorhq.com/widget/booking/GePPkVkfLYfacJPoq5Uz"
+        style="width: 100%; height: 750px; border: none; overflow: hidden; display: block;"
+        scrolling="no"
+        id="msgsndr-calendar"
+      ></iframe>
+    </div>
+    <script src="https://link.msgsndr.com/js/embed.js"></script>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     FINAL CTA
+════════════════════════════════════════════════════ -->
+<section class="cta-band">
+  <div class="cta-inner">
+    <h2 class="cta-head">Stop Losing Jobs<br>To Voicemail.</h2>
+    <p class="cta-sub">14 days free. We set everything up. The first missed call you recover pays for months.</p>
+    <a href="#calendar-section" class="btn btn-dark-lg">Start Your Free Trial →</a>
+    <p class="cta-fine">No setup fee &nbsp;·&nbsp; No contract &nbsp;·&nbsp; Live in 48 hours</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════ -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-logo">Pearl<span>.</span></div>
+    <div class="foot-info">
+      © 2025 Pearl Operations — Built for trades businesses that refuse to miss another job.<br>
+      <a href="mailto:evan@pearlops.com" class="foot-link">evan@pearlops.com</a> &nbsp;·&nbsp; Rossland, BC, Canada
+    </div>
+    <a href="https://pearlops.com/policy" target="_blank" rel="noopener noreferrer" class="foot-link" style="font-size: 13px;">Privacy Policy</a>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════════════ -->
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } }),
+    { threshold: 0.08, rootMargin: '0px 0px -32px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
