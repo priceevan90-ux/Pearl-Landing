@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The 5-Star Experience Playbook — Pearl</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#EEE7DF;
+  --off:#F5F3EF;
+  --cream:#EAE6DF;
+  --taupe:#CFC7BC;
+  --stone:#888070;
+  --char:#1C1C1C;
+  --black:#0F0F10;
+  --line:#DDD7CF;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--char);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+.page{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:100vh;
+}
+
+/* ─── LEFT ─── */
+.left{
+  padding:4rem 3.5rem;
+  display:flex;flex-direction:column;justify-content:center;
+  background:var(--bg);
+  position:relative;
+}
+.left-inner{max-width:480px}
+
+.logo{height:48px;width:auto;display:block;margin-bottom:2.5rem;opacity:0.85}
+
+.eyebrow{
+  font-size:9px;font-weight:400;letter-spacing:0.4em;
+  text-transform:uppercase;color:var(--stone);margin-bottom:1.25rem;
+}
+.headline{
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:clamp(38px,5vw,56px);
+  line-height:0.97;color:var(--char);margin-bottom:0.75rem;
+}
+.headline em{font-style:italic;color:var(--stone)}
+.subhead{
+  font-size:13px;font-weight:300;color:var(--stone);
+  line-height:1.85;margin-bottom:2.5rem;
+}
+
+/* What's inside */
+.inside{margin-bottom:2.5rem}
+.inside-title{
+  font-size:9px;font-weight:500;letter-spacing:0.25em;
+  text-transform:uppercase;color:var(--stone);margin-bottom:0.875rem;
+}
+.inside-item{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:12px;font-weight:300;color:var(--char);
+  padding:6px 0;border-bottom:0.5px solid var(--line);line-height:1.5;
+}
+.inside-item:last-child{border-bottom:none}
+.inside-item::before{content:'✦';color:var(--taupe);font-size:9px;margin-top:2px;flex-shrink:0}
+
+/* GHL Form wrapper */
+.form-wrap{
+  background:rgba(255,255,255,0.45);
+  border:0.5px solid var(--line);
+  padding:2rem;
+}
+.form-label{
+  font-size:9px;font-weight:500;letter-spacing:0.25em;
+  text-transform:uppercase;color:var(--stone);margin-bottom:1rem;
+  display:block;
+}
+.ghl-iframe-wrap{
+  width:100%;
+  min-height:220px;
+}
+.ghl-iframe-wrap iframe{
+  width:100%;
+  min-height:220px;
+  border:none;
+  border-radius:0;
+  display:block;
+}
+.form-note{
+  font-size:10px;font-weight:300;color:var(--stone);
+  margin-top:10px;text-align:center;line-height:1.5;
+}
+
+/* ─── RIGHT ─── */
+.right{
+  position:relative;
+  overflow:hidden;
+  background:#1C1A17;
+}
+.right-img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:center 10%;
+  display:block;
+  opacity:0.75;
+}
+.right-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(238,231,223,0.08) 0%,
+    transparent 40%,
+    rgba(15,15,16,0.6) 100%
+  );
+}
+.right-caption{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:2.5rem;
+}
+.rc-name{
+  font-family:Georgia,'Times New Roman',serif;font-size:28px;
+  color:rgba(255,255,255,0.92);margin-bottom:4px;font-style:italic;
+}
+.rc-sub{
+  font-size:10px;font-weight:300;letter-spacing:0.2em;
+  text-transform:uppercase;color:rgba(255,255,255,0.4);
+}
+
+/* ─── MOBILE ─── */
+@media(max-width:700px){
+  .page{grid-template-columns:1fr}
+  .right{display:none}
+  .left{padding:3rem 1.75rem}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- LEFT — opt-in -->
+  <div class="left">
+    <div class="left-inner">
+
+      <div class="eyebrow">Free Resource — Pearl Operations</div>
+      <h1 class="headline">The 5-Star<br><em>Experience</em><br>Playbook.</h1>
+      <p class="subhead">Six proven touchpoints, two bonus strategies, and real scripts that help beauty & wellness businesses fill their books, earn more 5-star reviews, and create clients for life.</p>
+
+      <div class="inside">
+        <div class="inside-title">What's inside</div>
+        <div class="inside-item">The call that books — or loses — a client forever</div>
+        <div class="inside-item">How to kill no-shows without feeling like a debt collector</div>
+        <div class="inside-item">The exact moment to ask for a 5-star review</div>
+        <div class="inside-item">The follow-up that brings clients back before they drift</div>
+        <div class="inside-item">Fill your books in quiet months — three plays that work</div>
+        <div class="inside-item">Turn your happiest clients into your referral engine</div>
+      </div>
+
+      <div class="form-wrap">
+        <span class="form-label">Get instant access — free</span>
+
+        <div class="ghl-iframe-wrap">
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/1Wn5zZ73p25J39NH16xW"
+            id="inline-1Wn5zZ73p25J39NH16xW"
+            data-layout="{'id':'INLINE'}"
+            data-trigger-type="alwaysShow"
+            data-trigger-value=""
+            data-activation-type="alwaysActivated"
+            data-activation-value=""
+            data-deactivation-type="neverDeactivate"
+            data-deactivation-value=""
+            data-form-name="Form 3"
+            data-height="undefined"
+            data-layout-iframe-id="inline-1Wn5zZ73p25J39NH16xW"
+            data-form-id="1Wn5zZ73p25J39NH16xW"
+            title="Get the Playbook"
+          ></iframe>
+        </div>
+
+        <p class="form-note">No spam. Unsubscribe anytime.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RIGHT — photo -->
+  <div class="right">
+    <img
+      class="right-img"
+      src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&q=80"
+      alt="Salon"
+    >
+    <div class="right-overlay"></div>
+    <div class="right-caption">
+      <div class="rc-name">Your clients deserve<br>a 5-star experience.</div>
+      <div class="rc-sub">Pearl — Beauty & Wellness</div>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://link.msgsndr.com/js/form_embed.js"></script>
+
+</body>
+</html>
