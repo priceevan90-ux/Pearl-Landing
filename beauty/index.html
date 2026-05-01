@@ -529,9 +529,54 @@ footer { background:var(--soft-blk);padding:80px 64px 48px;border-top:0.5px soli
     </div>
   </div>
 </footer>
+  <div class="modal-overlay" id="playbookModal">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">&times;</button>
+
+    <iframe
+      src="https://api.leadconnectorhq.com/widget/form/nGCRJDMZSOge3b6sIO6L"
+      style="width:100%; height:434px; border:none; border-radius:8px;"
+      title="Beauty_Manpage_Playbook_Optin">
+    </iframe>
+  </div>
+</div>
+
+<script src="https://link.msgsndr.com/js/form_embed.js"></script>
 
 <script>const nt=document.getElementById('navToggle'),nl=document.getElementById('navLinks');if(nt)nt.addEventListener('click',()=>{nt.classList.toggle('open');nl.classList.toggle('open');});
 window.addEventListener('scroll',()=>{const n=document.querySelector('nav');if(window.scrollY>60){n.classList.add('scrolled');}else{n.classList.remove('scrolled');}});
+</script>
+
+  <script>
+const md=document.getElementById('playbookModal');
+const mc=document.getElementById('modalClose');
+
+function openMod(){
+  md.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeMod(){
+  md.classList.remove('open');
+  document.body.style.overflow='';
+}
+
+if(mc)mc.addEventListener('click',closeMod);
+
+if(md)md.addEventListener('click',e=>{
+  if(e.target===md)closeMod();
+});
+
+document.querySelectorAll('[data-playbook]').forEach(el=>{
+  el.addEventListener('click',e=>{
+    e.preventDefault();
+    openMod();
+  });
+});
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&md.classList.contains('open'))closeMod();
+});
 </script>
 
 </body>
