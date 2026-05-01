@@ -530,7 +530,7 @@ footer { background:var(--soft-blk);padding:80px 64px 48px;border-top:0.5px soli
   </div>
 </footer>
 
-<script>const nt=document.getElementById('navToggle'),nl=document.getElementById('navLinks');if(nt)nt.addEventListener('click',()=>{nt.classList.toggle('open');nl.classList.toggle('open');});const md=document.getElementById('playbookModal'),mc=document.getElementById('modalClose');function openMod(){md.classList.add('open');document.body.style.overflow='hidden';}function closeMod(){md.classList.remove('open');document.body.style.overflow='';setTimeout(()=>{document.getElementById('modalForm').style.display='block';document.getElementById('modalThanks').classList.remove('show');},300);}if(mc)mc.addEventListener('click',closeMod);if(md)md.addEventListener('click',e=>{if(e.target===md)closeMod();});document.querySelectorAll('[data-playbook]').forEach(el=>{el.addEventListener('click',e=>{e.preventDefault();openMod();});});function submitPB(){const n=document.getElementById('pbN').value.trim(),e=document.getElementById('pbE').value.trim();if(!n||!e||!e.includes('@'))return;console.log('Lead:',{n,e});document.getElementById('modalForm').style.display='none';document.getElementById('modalThanks').classList.add('show');document.getElementById('thxN').textContent=n+'.';}document.addEventListener('keydown',e=>{if(e.key==='Escape'&&md.classList.contains('open'))closeMod();});
+<script>const nt=document.getElementById('navToggle'),nl=document.getElementById('navLinks');if(nt)nt.addEventListener('click',()=>{nt.classList.toggle('open');nl.classList.toggle('open');});
 window.addEventListener('scroll',()=>{const n=document.querySelector('nav');if(window.scrollY>60){n.classList.add('scrolled');}else{n.classList.remove('scrolled');}});
 </script>
 
